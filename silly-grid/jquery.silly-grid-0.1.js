@@ -169,11 +169,13 @@
 			$(this).children("#tvGridAnchor").focus();
 			I.localInit(this);
 			I.select();
-			
+			return this;
 		},
 		blur:function() {
 			$(this).children(".tvGridElement").removeClass(I.current.settings.selectClass);
 			$(this).children("#tvGridAnchor").blur();
+			
+			return this;
 		},
 		getIndex:function() {
 			I.localInit(this);
@@ -189,6 +191,7 @@
 				I.select();
 				
 			}
+			return this;
 		},
 		
 	};
