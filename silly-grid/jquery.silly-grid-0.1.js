@@ -1,4 +1,4 @@
-/* jQuery tvGrid plugin v 0.1
+/* jQuery silly-grid plugin v 0.1
  * author: Wojtek Turyn
  * 
  * 
