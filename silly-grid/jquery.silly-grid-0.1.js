@@ -16,15 +16,13 @@
 					$.error('SillyGrid was not initialized on this element: '+$(context).attr('id'));
 				} else {
 					I.current = I.data['data'+id];
-				}
-			
+				}			
 		},
 		select:function() {
 			$("#"+I.current.id+" .sillyGridElement-"+I.current.previous).removeClass(I.current.settings.selectClass);
 			$("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex).addClass(I.current.settings.selectClass);
 			I.current.previous=I.current.currentIndex;
-			I.current.settings.onSelected(I.current.currentIndex,$("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex));
-			
+			I.current.settings.onSelected(I.current.currentIndex,$("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex));			
 		},
 		keyHandler:function() {
 			switch(event.keyCode) {
@@ -48,8 +46,7 @@
 					I.select();
 				} else {
 					I.current.settings.onMoveBeyondBottom();
-				}
-				
+				}				
 			break;
 			case tvKey.KEY_LEFT:
 				if (I.current.currentIndex > 0 && I.current.settings.perRow>1) {
@@ -110,8 +107,7 @@
 			
 		}
 	};
-	
-	
+		
 	var methods={
 		init:function (options) {
 			var settings = $.extend( {
@@ -128,9 +124,7 @@
 		      onMoveBeyondLeft:I.onMoveBeyondLeft,
 		      onMoveBeyondRight:I.onMoveBeyondRight
 		    }, options);
-			
-			
-			
+					
 			var target = $(this[0]);
 			var data = target.data('sillyGrid');
 			if (data)
