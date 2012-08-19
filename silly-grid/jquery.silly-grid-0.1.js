@@ -1,4 +1,4 @@
-/* jQuery silly-grid plugin v 0.1
+/* jQuery sillyGrid plugin v 0.1
  * author: Wojtek Turyn
  * 
  * 
@@ -10,18 +10,18 @@
 		data:{},
 		
 		localInit:function(context) {
-			var id = $(context).data('tvgrid');
+			var id = $(context).data('sillyGrid');
 			if (!id)
 				{
-					$.error('tvGrid was not initialized on this element: '+$(context).attr('id'));
+					$.error('SillyGrid was not initialized on this element: '+$(context).attr('id'));
 				} else {
 					I.current = I.data['data'+id];
 				}
 			
 		},
 		select:function() {
-			$("#"+I.current.id+" .tvGridElement-"+I.current.previous).removeClass(I.current.settings.selectClass);
-			$("#"+I.current.id+" .tvGridElement-"+I.current.currentIndex).addClass(I.current.settings.selectClass);
+			$("#"+I.current.id+" .sillyGridElement-"+I.current.previous).removeClass(I.current.settings.selectClass);
+			$("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex).addClass(I.current.settings.selectClass);
 			I.current.previous=I.current.currentIndex;
 			I.current.settings.onSelected(I.current.currentIndex);
 			
@@ -68,7 +68,7 @@
 				}
 			break;
 			case tvKey.KEY_ENTER:
-				I.current.settings.onEnter(I.current.currentIndex);
+				I.current.settings.onEnter(I.current.currentIndex, $("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex));
 			break;
 			case tvKey.KEY_RETURN:
 				widgetAPI.blockNavigation(event);
@@ -82,7 +82,7 @@
 		onSelected:function(index) {
 			
 		},
-		onEnter:function(index) {
+		onEnter:function(index, element) {
 			
 		},
 		onReturn:function(){
@@ -125,20 +125,20 @@
 			
 			
 			var target = $(this[0]);
-			var data = target.data('tvgrid');
+			var data = target.data('sillyGrid');
 			if (data)
 				return target;
 			var children = target.children('div');
 			
-			children.addClass('tvGridElement');
+			children.addClass('sillyGridElement');
 			var maxHeight=0;
 			var maxWidth=0;
 			
 			var cnt=0;
-			target.children('.tvGridElement').each(function(){
+			target.children('.sillyGridElement').each(function(){
 				maxHeight=Math.max(maxHeight, $(this).height());
 				maxWidth=Math.max(maxWidth, $(this).width());
-				$(this).addClass('tvGridElement-'+cnt);
+				$(this).addClass('sillyGridElement-'+cnt);
 				
 				cnt++;
 				if (cnt % settings.perRow==0) {
@@ -149,15 +149,15 @@
 				target.append($('<div style="clear:both"></div>'));
 			}
 			
-			target.children('.tvGridElement').css({width:maxWidth, height:maxHeight, float:'left'});
+			target.children('.sillyGridElement').css({width:maxWidth, height:maxHeight, float:'left'});
 			var id = target.attr('id');
-			var anchor = $('<a href="javascript:void(0)" id="tvGridAnchor"></a>');
+			var anchor = $('<a href="javascript:void(0)" id="sillyGridAnchor"></a>');
 			anchor.keydown(I.keyHandler);
 			target.append(anchor);
-			target.data('tvgrid',id);
+			target.data('sillyGrid',id);
 			I.data['data'+id]={
 					currentIndex:settings.index,
-					childrenCount:target.children('.tvGridElement').length,
+					childrenCount:target.children('.sillyGridElement').length,
 					previous:settings.index,
 					settings:settings,
 					id:id,
@@ -166,14 +166,14 @@
 			return target;
 		},
 		focus:function() {
-			$(this).children("#tvGridAnchor").focus();
+			$(this).children("#sillyGridAnchor").focus();
 			I.localInit(this);
 			I.select();
 			return this;
 		},
 		blur:function() {
-			$(this).children(".tvGridElement").removeClass(I.current.settings.selectClass);
-			$(this).children("#tvGridAnchor").blur();
+			$(this).children(".sillyGridElement").removeClass(I.current.settings.selectClass);
+			$(this).children("#sillyGridAnchor").blur();
 			
 			return this;
 		},
@@ -185,7 +185,7 @@
 		setIndex:function(index) {
 			I.localInit(this);
 			if (index<0 || index+1>I.current.childrenCount) {
-				 $.error( 'tvGrid.setIndex('+index+') error: index out of bounds.');
+				 $.error( 'sillyGrid.setIndex('+index+') error: index out of bounds.');
 			} else {
 				I.current.currentIndex=index;
 				I.select();
@@ -203,7 +203,7 @@
 		      return methods.init.apply( this, arguments );
 		    } else {
 		    	
-		      $.error( 'Method ' +  method + ' does not exist on jQuery.tvGrid' );
+		      $.error( 'Method ' +  method + ' does not exist on jQuery.sillyGrid' );
 		    }
 	
 	};
