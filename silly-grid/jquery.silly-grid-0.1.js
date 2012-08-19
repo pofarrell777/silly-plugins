@@ -23,7 +23,7 @@
 			$("#"+I.current.id+" .sillyGridElement-"+I.current.previous).removeClass(I.current.settings.selectClass);
 			$("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex).addClass(I.current.settings.selectClass);
 			I.current.previous=I.current.currentIndex;
-			I.current.settings.onSelected(I.current.currentIndex);
+			I.current.settings.onSelected(I.current.currentIndex,$("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex));
 			
 		},
 		keyHandler:function() {
@@ -74,12 +74,16 @@
 				widgetAPI.blockNavigation(event);
 				I.current.settings.onReturn();
 			break;
+			case tvKey.KEY_EXIT:
+				if (I.current.settings.blockExitEvent)
+					widgetAPI.blockNavigation(event);
+			break;
 			default:
 				I.current.settings.onKey(event);
 			break;
 			}
 		},
-		onSelected:function(index) {
+		onSelected:function(index, element) {
 			
 		},
 		onEnter:function(index, element) {
@@ -112,6 +116,7 @@
 		      perRow: 4,
 		      selectClass:'selected',
 		      index:0,
+		      blockExitEvent:false,
 		      onSelected:I.onSelected,
 		      onEnter:I.onEnter,
 		      onReturn:I.onReturn,
