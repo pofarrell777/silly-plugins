@@ -52,15 +52,17 @@
 				
 			break;
 			case tvKey.KEY_LEFT:
-				if (I.current.currentIndex > 0 ) {
+				if (I.current.currentIndex > 0 && I.current.settings.perRow>1) {
+				
 					I.current.currentIndex--;
 					I.select();
+			
 				} else {
 					I.current.settings.onMoveBeyondLeft();
 				}
 			break;
 			case tvKey.KEY_RIGHT:
-				if (I.current.currentIndex < I.current.childrenCount-1 ) {
+				if (I.current.currentIndex < I.current.childrenCount-1 && I.current.settings.perRow>1) {
 					I.current.currentIndex++;
 					I.select();
 				} else {
