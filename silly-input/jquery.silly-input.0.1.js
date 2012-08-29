@@ -12,8 +12,10 @@
 			},
 			onReturn:function(){
 				alert('SillyInput canceled');
-			}
+			},
+			used:false
 	};
+	
 	
 	var methods={
 		init:function(options) {
@@ -33,9 +35,17 @@
 			
 			var target = $(this);
 			
+			
+			
 			var data = target.data('sillyInput');
 			if (data)
 				return;
+			
+			if (target.length!=1 || I.used) {
+				$.error( 'SillyInput can be initialized on one element only.');
+			}
+			
+			I.used=true;
 			target.data('sillyInput',1);
 			target.addClass('sillyInput');
 			target.css({
