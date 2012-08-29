@@ -43,6 +43,7 @@
 			
 			if (target.length!=1 || I.used) {
 				$.error( 'SillyInput can be initialized on one element only.');
+				return;
 			}
 			
 			I.used=true;
@@ -92,6 +93,12 @@
 			
 		},
 		show:function(text, enterFunc, returnFunc) {
+			
+			var data = $(this).data('sillyInput');
+			if (!data) {
+				$.error( 'SillyInput was not initialized on this element.');
+				return;
+			}
 			
 			I.onEnter = enterFunc;
 			I.onReturn = returnFunc;
