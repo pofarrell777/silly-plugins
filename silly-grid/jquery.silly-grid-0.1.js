@@ -149,8 +149,8 @@
 			if (cnt % settings.perRow!=0) {
 				target.append($('<div style="clear:both"></div>'));
 			}
-			
-			target.children('.sillyGridElement').css({width:maxWidth, height:maxHeight, float:'left'});
+
+			target.children('.sillyGridElement').css({position:'relative', width:maxWidth, height:maxHeight, float:'left'});
 			var id = target.attr('id');
 			var anchor = $('<a href="javascript:void(0)" id="sillyGridAnchor"></a>');
 			anchor.keydown(I.keyHandler);
