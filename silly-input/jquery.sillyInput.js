@@ -72,16 +72,19 @@
 					
 					sillyIme.setKeyFunc(tvKey.KEY_ENTER, function(){
 						var value = $("#sillyInputInput").val();
+						$("#sillyInputInput").blur();
 						target.hide();
 						I.onEnter(value);
 					});
 					sillyIme.setKeyFunc(tvKey.KEY_RETURN, function(){
 						widgetAPI.blockNavigation(event);
+						$("#sillyInputInput").blur();
 						target.hide();
 						I.onReturn();
 					});
 					sillyIme.setKeyFunc(tvKey.KEY_EXIT, function(){
 						widgetAPI.blockNavigation(event);
+						$("#sillyInputInput").blur();
 						widgetAPI.sendExitEvent();
 					});
 					
