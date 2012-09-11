@@ -67,7 +67,11 @@
 					
 					sillyIme.onFocusFunc=function(){
 						sillyIme.modeArr=settings.charKits;
-						sillyIme.setMode(settings.defaultCharKit);
+						sillyIme._updateModeList();
+						sillyIme.core.ChangeInputMode(settings.defaultCharKit);
+						sillyIme._refreshKeypad();
+						sillyIme._refreshKeypadHelp();
+						
 					};
 					
 					sillyIme.setKeyFunc(tvKey.KEY_ENTER, function(){
