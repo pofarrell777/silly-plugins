@@ -31,7 +31,7 @@
 					I.current.currentIndex -= I.current.settings.perRow;
 					I.select();					
 				} else {
-					I.current.settings.onMoveBeyondTop();
+					I.current.settings.onMoveBeyondTop(I.current.currentIndex);
 				}
 			break;
 			case tvKey.KEY_DOWN:
@@ -45,7 +45,7 @@
 						I.current.currentIndex = I.current.childrenCount-1;
 					I.select();
 				} else {
-					I.current.settings.onMoveBeyondBottom();
+					I.current.settings.onMoveBeyondBottom(I.current.currentIndex);
 				}				
 			break;
 			case tvKey.KEY_LEFT:
@@ -55,7 +55,7 @@
 					I.select();
 			
 				} else {
-					I.current.settings.onMoveBeyondLeft();
+					I.current.settings.onMoveBeyondLeft(I.current.currentIndex);
 				}
 			break;
 			case tvKey.KEY_RIGHT:
@@ -63,7 +63,7 @@
 					I.current.currentIndex++;
 					I.select();
 				} else {
-					I.current.settings.onMoveBeyondRight();
+					I.current.settings.onMoveBeyondRight(I.current.currentIndex);
 				}
 			break;
 			case tvKey.KEY_ENTER:
@@ -78,7 +78,7 @@
 					widgetAPI.blockNavigation(event);
 			break;
 			default:
-				I.current.settings.onKey(event);
+				I.current.settings.onKey(event,I.current.currentIndex, $("#"+I.current.id+" .sillyGridElement-"+I.current.currentIndex));
 			break;
 			}
 		},
@@ -91,19 +91,19 @@
 		onReturn:function(){
 			
 		},
-		onKey:function(event) {
+		onKey:function(event, index, element) {
 			
 		},
-		onMoveBeyondTop:function() {
+		onMoveBeyondTop:function(index) {
 			
 		},
-		onMoveBeyondBottom:function() {
+		onMoveBeyondBottom:function(index) {
 			
 		},
-		onMoveBeyondLeft:function() {
+		onMoveBeyondLeft:function(index) {
 			
 		},
-		onMoveBeyondRight:function() {
+		onMoveBeyondRight:function(index) {
 			
 		}
 	};
@@ -149,8 +149,12 @@
 			if (cnt % settings.perRow!=0) {
 				target.append($('<div style="clear:both"></div>'));
 			}
-
-			target.children('.sillyGridElement').css({position:'relative', width:maxWidth, height:maxHeight, float:'left'});
+			var css = {position:'relative', width:maxWidth, float:'left'};
+			if (settings.perRow!=1) {
+				css.height=maxHeight;
+			}
+			
+			target.children('.sillyGridElement').css(css);
 			var id = target.attr('id');
 			var anchor = $('<a href="javascript:void(0)" id="sillyGridAnchor"></a>');
 			anchor.keydown(I.keyHandler);

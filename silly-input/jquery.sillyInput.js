@@ -28,7 +28,7 @@
 				top:50,
 				keyPadLeft:570,
 				keyPadTop:105,
-				charKits:['_latin_small','_latin_big','_num','_special'],
+				charKits:['_latin_small','_latin_big','_num'],
 				defaultCharKit:'_latin_small'
 				
 			},options);
