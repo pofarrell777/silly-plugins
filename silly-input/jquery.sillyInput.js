@@ -13,7 +13,10 @@
 			onReturn:function(){
 				alert('SillyInput canceled');
 			},
-			used:false
+			used:false,
+			onChange:function(text) {
+				alert(text);
+			}
 	};
 	
 	
@@ -29,13 +32,15 @@
 				keyPadLeft:570,
 				keyPadTop:105,
 				charKits:['_latin_small','_latin_big','_num'],
-				defaultCharKit:'_latin_small'
+				defaultCharKit:'_latin_small',
+				enableAutoComplete:false,
+				autoCompleteRequest:null
 				
 			},options);
 			
 			var target = $(this);
 			
-			
+			I.settings = settings;
 			
 			var data = target.data('sillyInput');
 			if (data)
@@ -52,23 +57,23 @@
 			target.css({
 				display:'none',
 				position:'absolute',
-				width:settings.width,
-				height:settings.height,
-				left:settings.left,
-				top:settings.top,
+				width:I.settings.width,
+				height:I.settings.height,
+				left:I.settings.left,
+				top:I.settings.top,
 				'z-index':99
 				
 			});
-			target.append('<p>'+settings.text+'</p>');
-			target.append('<input type="text" maxlength="'+settings.length+'" id="sillyInputInput" />');
+			target.append('<p>'+I.settings.text+'</p>');
+			target.append('<input type="text" maxlength="'+I.settings.length+'" id="sillyInputInput" />');
 			
 			
 				var sillyIme = new IMEShell('sillyInputInput', function(){
 					
 					sillyIme.onFocusFunc=function(){
-						sillyIme.modeArr=settings.charKits;
+						sillyIme.modeArr=I.settings.charKits;
 						sillyIme._updateModeList();
-						sillyIme.core.ChangeInputMode(settings.defaultCharKit);
+						sillyIme.core.ChangeInputMode(I.settings.defaultCharKit);
 						sillyIme._refreshKeypad();
 						sillyIme._refreshKeypadHelp();
 						
@@ -91,15 +96,20 @@
 						$("#sillyInputInput").blur();
 						widgetAPI.sendExitEvent();
 					});
-					
-					sillyIme.setKeypadPos(settings.keyPadLeft, settings.keyPadTop);
+					sillyIme.setOnComplete = function() {
+						I.onChange($("#sillyInputInput").val());
+					};
+					sillyIme.setKeypadPos(I.settings.keyPadLeft, I.settings.keyPadTop);
 					sillyIme.setWordBoxPos(18, 6);
 					
 				});
 			
 			
 		},
-		show:function(text, enterFunc, returnFunc) {
+		show:function(text, enterFunc, returnFunc, charset) {
+			if (typeof charset!='undefined') {
+				I.settings.defaultCharKit = charset;
+			}
 			
 			var data = $(this).data('sillyInput');
 			if (!data) {
@@ -112,7 +122,10 @@
 			$('.sillyInput').show();
 			$("#sillyInputInput").val(text);
 			$("#sillyInputInput").focus();
-		}
+		},
+		autoComplete:function(list) {
+			
+		},
 	};
 	
 	$.fn.sillyInput = function(method) {
