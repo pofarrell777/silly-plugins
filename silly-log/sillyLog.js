@@ -12,6 +12,9 @@ SillyLog = {
 						$("#sillyLog").css(SillyLog.vis[SillyLog.actVis]);
 					}
 				};
+				window.onerror = function(errorMsg, url, lineNumber) {
+					SillyLog.line('<span style="color:red">'+errorMsg+'<br>'+lineNumber+'</span>');
+				};
 			}
 			$("#sillyLog").css(SillyLog.vis[SillyLog.actVis]);
 		},
